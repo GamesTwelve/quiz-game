@@ -1,35 +1,48 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useState } from 'react';
+import ImageQuestion from './components/ImageQuestion';
+import ResultScreen from './components/ResultScreen';
+import QUESTIONS from './data/questions';
 
-function App() {
-  const [count, setCount] = useState(0)
+export default function App() {
+  // for this example we show the first question only
+  const question = QUESTIONS[0];
+
+  // states: null = unanswered, 'correct' or 'incorrect'
+  const [result, setResult] = useState(null);
+
+  function handleAnswer(selectedIndex) {
+    if (selectedIndex === question.correctIndex) {
+      setResult('correct');
+    } else {
+      setResult('incorrect');
+    }
+  }
+
+  function reset() {
+    setResult(null);
+  }
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    <div className="app-container">
+      <header>
+        <h1>Picture Quiz</h1>
+      </header>
 
-export default App
+      <main>
+        {result === null ? (
+          <ImageQuestion question={question} onAnswer={handleAnswer} />
+        ) : (
+          <ResultScreen
+            result={result}
+            correctText={question.choices[question.correctIndex].title}
+            onTryAgain={reset}
+          />
+        )}
+      </main>
+
+      <footer>
+        <small>Built with Vite + React</small>
+      </footer>
+    </div>
+  );
+}
