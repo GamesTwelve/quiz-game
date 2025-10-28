@@ -4,9 +4,9 @@ const QUESTIONS = [
     id: 'q1',
     text: 'Which of these is a Golden Retriever?',
     choices: [
-      { image: '/images/dog1.jpg', title: 'Beagle' },
-      { image: '/images/dog2.jpg', title: 'Golden Retriever' },
-      { image: '/images/dog3.jpg', title: 'Bulldog' },
+      { image: '/images/1.jpg', title: 'Beagle' },
+      { image: '/images/2.jpg', title: 'Golden Retriever' },
+      { image: '/images/3.jpg', title: 'Bulldog' },
     ],
     correctIndex: 1,
   },
